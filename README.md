@@ -1,6 +1,7 @@
 # 4jinx
 
 4jinx is a tool to download images of 4chan.
+
 **Important note:** Using this tool violates the global rules of 4chan. Use at your own risk!
 
 To compile 4jinx, just use:
