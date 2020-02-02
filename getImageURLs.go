@@ -21,7 +21,7 @@ func getImageURLs(board string, threadNumber string) *list.List {
 	document, _ := html.Parse(strings.NewReader(stringBody))
 	threadNode, err := getThreadNode(document)
 	if err != nil {
-		fmt.Println(err.Error())
+		fmt.Println(RedColorRaw + err.Error() + ResetColorRaw)
 		return nil
 	}
 

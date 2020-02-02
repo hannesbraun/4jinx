@@ -34,7 +34,7 @@ func getArchiveThreadNumbers(board string) *list.List {
 
 	if currentToken == html.ErrorToken {
 		// Unexpected error
-		fmt.Println("An unexpected error occured:", htmlTokenizer.Err().Error())
+		fmt.Println(RedColorRaw + "An unexpected error occured: " + htmlTokenizer.Err().Error() + ResetColorRaw)
 	}
 
 	return threadNumbers

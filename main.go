@@ -5,6 +5,15 @@ import (
 	"os"
 )
 
+const (
+	BlueColor = "\033[1;34m%s\033[0;0m"
+	BlueColorRaw = "\033[1;34m"
+	RedColor = "\033[1;31m%s\033[0;0m"
+	RedColorRaw = "\033[1;31m"
+	ResetColorRaw = "\033[0;0m"
+	YellowColor = "\033[0;33m%s\033[0;0m"
+)
+
 func main() {
 
 	// ./bot archive wg c mu
@@ -14,24 +23,24 @@ func main() {
 	var usedMode mode
 
 	if lenArgs <= 1 {
-		fmt.Println("Plese provide command line arguments to specify the threads to download")
+		fmt.Printf(RedColor, "Please provide command line arguments to specify the threads to download\n")
 		return
 	} else if os.Args[1] == "archive" {
 		if lenArgs > 2 {
 			usedMode = Archive
 		} else {
-			fmt.Println("Please specify at least one board to download the archive from.")
+			fmt.Printf(RedColor, "Please specify at least one board to download the archive from.\n")
 			return
 		}
 	} else if os.Args[1] == "thread" {
 		if lenArgs > 3 {
 			usedMode = SingleThread
 		} else {
-			fmt.Println("Error: please specify the board name and the thread number")
+			fmt.Printf(RedColor, "Error: please specify the board name and the thread number\n")
 			return
 		}
 	} else {
-		fmt.Println(os.Args[1], "is not a valid parameter.")
+		fmt.Println(RedColor + os.Args[1] + " is not a valid parameter." + ResetColorRaw)
 		return
 	}
 
