@@ -18,5 +18,8 @@ jobs:
     - name: Check out code
       uses: actions/checkout@v2
 
+    - name: Install dependencies
+      run: go get -d ./...
+
     - name: Build
       run: make

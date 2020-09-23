@@ -4,3 +4,5 @@ all: main.go downloadThread.go getArchiveThreadNumbers.go getImageURLs.go tools.
 
 clean:
 	rm -r bin/
+
+.PHONY: all clean
