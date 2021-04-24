@@ -69,7 +69,7 @@ func getThreadNode(doc *html.Node) (*html.Node, error) {
 	if b != nil {
 		return b, nil
 	}
-	return nil, errors.New("Missing <div class=\"thread\"> in the node tree")
+	return nil, errors.New("missing <div class=\"thread\"> in the node tree")
 }
 
 func getFileNode(doc *html.Node) (*html.Node, error) {
@@ -92,5 +92,5 @@ func getFileNode(doc *html.Node) (*html.Node, error) {
 	if b != nil {
 		return b, nil
 	}
-	return nil, errors.New("Missing <div class=\"file\"> in the node tree")
+	return nil, errors.New("missing <div class=\"file\"> in the node tree")
 }

@@ -44,7 +44,7 @@ func main() {
 		return
 	}
 
-	// Creating the root direcotry (if not existing yet) and chdir into it
+	// Creating the root directory (if not existing yet) and chdir into it
 	rootDir := "4chan_archive"
 	mkdir(rootDir)
 	os.Chdir(rootDir)
@@ -52,7 +52,7 @@ func main() {
 	if usedMode == Archive {
 
 		for boardNameIndex := 2; boardNameIndex < lenArgs; boardNameIndex++ {
-			// Geting the thread numbers of the archive
+			// Getting the thread numbers of the archive
 			boardName := os.Args[boardNameIndex]
 			threadNumbers := getArchiveThreadNumbers(boardName)
 			mkdir(boardName)
@@ -67,7 +67,7 @@ func main() {
 
 	} else if usedMode == SingleThread {
 
-		// Geting the boardName and the trheadNumber and creating its directory
+		// Getting the boardName and the threadNumber and creating its directory
 		boardName := os.Args[2]
 		mkdir(boardName)
 		threadNumber := os.Args[3]
