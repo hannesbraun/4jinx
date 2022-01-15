@@ -1,2 +1,4 @@
 bin/
 .DS_Store
+/4chan_archive/
+/.idea/

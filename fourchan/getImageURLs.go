@@ -1,9 +1,10 @@
-package main
+package fourchan
 
 import (
 	"container/list"
 	"errors"
 	"fmt"
+	"github.com/hannesbraun/4jinx/util"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -11,7 +12,7 @@ import (
 	"golang.org/x/net/html"
 )
 
-func getImageURLs(board string, threadNumber string) *list.List {
+func GetImageURLs(board string, threadNumber string) *list.List {
 	// Getting the html file of the thread
 	response, _ := http.Get("http://boards.4chan.org/" + board + "/thread/" + threadNumber)
 	byteInput, _ := ioutil.ReadAll(response.Body)
@@ -21,7 +22,7 @@ func getImageURLs(board string, threadNumber string) *list.List {
 	document, _ := html.Parse(strings.NewReader(stringBody))
 	threadNode, err := getThreadNode(document)
 	if err != nil {
-		fmt.Println(RedColorRaw + err.Error() + ResetColorRaw)
+		fmt.Println(util.RedColorRaw + err.Error() + util.ResetColorRaw)
 		return nil
 	}
 

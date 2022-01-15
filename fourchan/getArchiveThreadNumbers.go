@@ -1,8 +1,9 @@
-package main
+package fourchan
 
 import (
 	"container/list"
 	"fmt"
+	"github.com/hannesbraun/4jinx/util"
 	"io/ioutil"
 	"net/http"
 	"strings"
@@ -11,7 +12,7 @@ import (
 	"golang.org/x/net/html/atom"
 )
 
-func getArchiveThreadNumbers(board string) *list.List {
+func GetArchiveThreadNumbers(board string) *list.List {
 	// Getting the html file of the archive
 	response, _ := http.Get("http://boards.4chan.org/" + board + "/archive")
 	byteInput, _ := ioutil.ReadAll(response.Body)
@@ -34,7 +35,7 @@ func getArchiveThreadNumbers(board string) *list.List {
 
 	if currentToken == html.ErrorToken {
 		// Unexpected error
-		fmt.Println(RedColorRaw + "An unexpected error occured: " + htmlTokenizer.Err().Error() + ResetColorRaw)
+		fmt.Println(util.RedColorRaw + "An unexpected error occured: " + htmlTokenizer.Err().Error() + util.ResetColorRaw)
 	}
 
 	return threadNumbers

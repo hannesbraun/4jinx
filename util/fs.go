@@ -1,11 +1,13 @@
-package main
+package util
 
 import (
 	"os"
 	"os/exec"
 )
 
-func mkdir(name string) {
+// File system related utilities
+
+func Mkdir(name string) {
 	_, err := os.Stat(name)
 	if os.IsNotExist(err) {
 		mkdirCommand := exec.Command("mkdir", name)

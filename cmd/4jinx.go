@@ -2,16 +2,9 @@ package main
 
 import (
 	"fmt"
+	"github.com/hannesbraun/4jinx/fourchan"
+	"github.com/hannesbraun/4jinx/util"
 	"os"
-)
-
-const (
-	BlueColor     = "\033[1;34m%s\033[0;0m"
-	BlueColorRaw  = "\033[1;34m"
-	RedColor      = "\033[1;31m%s\033[0;0m"
-	RedColorRaw   = "\033[1;31m"
-	ResetColorRaw = "\033[0;0m"
-	YellowColor   = "\033[0;33m%s\033[0;0m"
 )
 
 func main() {
@@ -23,30 +16,30 @@ func main() {
 	var usedMode mode
 
 	if lenArgs <= 1 {
-		fmt.Printf(RedColor, "Please provide command line arguments to specify the threads to download\n")
+		fmt.Printf(util.RedColor, "Please provide command line arguments to specify the threads to download\n")
 		return
 	} else if os.Args[1] == "archive" {
 		if lenArgs > 2 {
 			usedMode = Archive
 		} else {
-			fmt.Printf(RedColor, "Please specify at least one board to download the archive from.\n")
+			fmt.Printf(util.RedColor, "Please specify at least one board to download the archive from.\n")
 			return
 		}
 	} else if os.Args[1] == "thread" {
 		if lenArgs > 3 {
 			usedMode = SingleThread
 		} else {
-			fmt.Printf(RedColor, "Error: please specify the board name and the thread number\n")
+			fmt.Printf(util.RedColor, "Error: please specify the board name and the thread number\n")
 			return
 		}
 	} else {
-		fmt.Println(RedColor + os.Args[1] + " is not a valid parameter." + ResetColorRaw)
+		fmt.Println(util.RedColor + os.Args[1] + " is not a valid parameter." + util.ResetColorRaw)
 		return
 	}
 
 	// Creating the root directory (if not existing yet) and chdir into it
 	rootDir := "4chan_archive"
-	mkdir(rootDir)
+	util.Mkdir(rootDir)
 	os.Chdir(rootDir)
 
 	if usedMode == Archive {
@@ -54,13 +47,13 @@ func main() {
 		for boardNameIndex := 2; boardNameIndex < lenArgs; boardNameIndex++ {
 			// Getting the thread numbers of the archive
 			boardName := os.Args[boardNameIndex]
-			threadNumbers := getArchiveThreadNumbers(boardName)
-			mkdir(boardName)
+			threadNumbers := fourchan.GetArchiveThreadNumbers(boardName)
+			util.Mkdir(boardName)
 
 			if threadNumbers != nil {
 				// Downloading every thread's images
 				for threadNumber := threadNumbers.Front(); threadNumber != nil; threadNumber = threadNumber.Next() {
-					downloadThread(boardName, threadNumber.Value.(string))
+					fourchan.DownloadThread(boardName, threadNumber.Value.(string))
 				}
 			}
 		}
@@ -69,11 +62,11 @@ func main() {
 
 		// Getting the boardName and the threadNumber and creating its directory
 		boardName := os.Args[2]
-		mkdir(boardName)
+		util.Mkdir(boardName)
 		threadNumber := os.Args[3]
 
 		// Downloading the thread
-		downloadThread(boardName, threadNumber)
+		fourchan.DownloadThread(boardName, threadNumber)
 
 	}
 

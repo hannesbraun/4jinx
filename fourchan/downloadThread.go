@@ -1,7 +1,8 @@
-package main
+package fourchan
 
 import (
 	"fmt"
+	"github.com/hannesbraun/4jinx/util"
 	"io"
 	"log"
 	"net/http"
@@ -13,10 +14,10 @@ import (
 
 var activeTasks sync.WaitGroup
 
-func downloadThread(boardName string, threadNumber string) {
+func DownloadThread(boardName string, threadNumber string) {
 	if !isExisting(boardName, threadNumber) {
 		// Getting all image urls
-		imageURLs := getImageURLs(boardName, threadNumber)
+		imageURLs := GetImageURLs(boardName, threadNumber)
 
 		if imageURLs != nil {
 			var activeTasksCounter = 0
@@ -24,7 +25,7 @@ func downloadThread(boardName string, threadNumber string) {
 			// Download every image of the thread
 			for imageURL := imageURLs.Front(); imageURL != nil; imageURL = imageURL.Next() {
 				if activeTasksCounter > 64 {
-					fmt.Printf(YellowColor, "Cooldown: 64 files are opened\n")
+					fmt.Printf(util.YellowColor, "Cooldown: 64 files are opened\n")
 					activeTasks.Wait()
 					activeTasksCounter = 0
 				}
@@ -45,7 +46,7 @@ func isExisting(boardName string, threadNumber string) bool {
 		mkdirCommand := exec.Command("mkdir", threadDir)
 		err = mkdirCommand.Run()
 		if err != nil {
-			fmt.Printf(RedColor, "An error occured while creating the thread directory.\n")
+			fmt.Printf(util.RedColor, "An error occured while creating the thread directory.\n")
 		}
 		return false
 	} else if os.IsExist(err) {
@@ -53,7 +54,7 @@ func isExisting(boardName string, threadNumber string) bool {
 		return true
 	} else {
 		// Unknown Error
-		fmt.Printf(RedColor, "An error occured while creating the thread directory.\n")
+		fmt.Printf(util.RedColor, "An error occured while creating the thread directory.\n")
 		return true
 	}
 }
@@ -61,7 +62,7 @@ func isExisting(boardName string, threadNumber string) bool {
 func downloadImage(imageTask *DownloadTask) {
 	defer activeTasks.Done()
 
-	fmt.Println("Downloading image " + BlueColorRaw + imageTask.imageURL + ResetColorRaw)
+	fmt.Println("Downloading image " + util.BlueColorRaw + imageTask.imageURL + util.ResetColorRaw)
 
 	request, _ := http.NewRequest("GET", imageTask.imageURL, nil)
 	response, err := http.DefaultClient.Do(request)

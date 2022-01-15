@@ -2,4 +2,4 @@ module github.com/hannesbraun/4jinx
 
 go 1.16
 
-require golang.org/x/net v0.0.0-20210423184538-5f58ad60dda6
+require golang.org/x/net v0.0.0-20220114011407-0dd24b26b47d
